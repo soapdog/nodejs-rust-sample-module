@@ -1,0 +1,17 @@
+{
+  "name": "exemplo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "neon build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv": "^2.0.0",
+    "geolib": "^2.0.24",
+    "neon-cli": "^0.1.20"
+  }
+}

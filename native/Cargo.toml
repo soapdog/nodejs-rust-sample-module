@@ -1,0 +1,20 @@
+[package]
+name = "airport_distance"
+version = "0.1.0"
+authors = ["andre alves garzia <andre@andregarzia.com>"]
+license = "MIT"
+build = "build.rs"
+
+[lib]
+name = "airport_distance"
+crate-type = ["dylib"]
+
+[build-dependencies]
+neon-build = "0.1.20"
+
+[dependencies]
+neon = "0.1.20"
+csv = "1.0.0-beta.5"
+serde = "1.0.20"
+serde_derive = "1.0.20"
+geo = "0.6.3"
