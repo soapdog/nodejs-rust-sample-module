@@ -1,4 +1,4 @@
-curl https://sh.rustup.rs -o /tmp/rustup-init.sh
+curl -o /tmp/rustup-init.sh "https://sh.rustup.rs"
 wait
 sh /tmp/rustup-init.sh -y
 export PATH="$HOME/.cargo/bin:$PATH"
