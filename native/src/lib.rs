@@ -71,18 +71,18 @@ fn airport_distance(call: Call) -> JsResult<JsUndefined> {
     for a in r.into_iter() {
         let obj = JsObject::new(scope);
 
-        obj.set("ident", JsString::new(scope, &a.ident).unwrap());
-        obj.set("kind", JsString::new(scope, &a.kind).unwrap());
-        obj.set("name", JsString::new(scope, &a.name).unwrap());
-        obj.set("coordinates", JsString::new(scope, &a.coordinates).unwrap());
-        obj.set("elevation_ft", JsString::new(scope, &a.elevation_ft).unwrap());
-        obj.set("continent", JsString::new(scope, &a.continent).unwrap());
-        obj.set("iso_country", JsString::new(scope, &a.iso_country).unwrap());
-        obj.set("iso_region", JsString::new(scope, &a.iso_region).unwrap());
-        obj.set("municipality", JsString::new(scope, &a.municipality).unwrap());
-        obj.set("gps_code", JsString::new(scope, &a.gps_code).unwrap());
-        obj.set("iata_code", JsString::new(scope, &a.iata_code).unwrap());
-        obj.set("local_code", JsString::new(scope, &a.local_code).unwrap());
+        obj.set("ident", JsString::new(scope, &a.ident).expect("ident from results array is wrong"))?;
+        obj.set("kind", JsString::new(scope, &a.kind).expect("kind from results array is wrong"))?;
+        obj.set("name", JsString::new(scope, &a.name).expect("name from results array is wrong"))?;
+        obj.set("coordinates", JsString::new(scope, &a.coordinates).expect("coordinates from results array is wrong"))?;
+        obj.set("elevation_ft", JsString::new(scope, &a.elevation_ft).expect("elevation_ft from results array is wrong"))?;
+        obj.set("continent", JsString::new(scope, &a.continent).expect("continent from results array is wrong"))?;
+        obj.set("iso_country", JsString::new(scope, &a.iso_country).expect("iso_country from results array is wrong"))?;
+        obj.set("iso_region", JsString::new(scope, &a.iso_region).expect("iso_region from results array is wrong"))?;
+        obj.set("municipality", JsString::new(scope, &a.municipality).expect("municipality from results array is wrong"))?;
+        obj.set("gps_code", JsString::new(scope, &a.gps_code).expect("gps_code from results array is wrong"))?;
+        obj.set("iata_code", JsString::new(scope, &a.iata_code).expect("iata_code from results array is wrong"))?;
+        obj.set("local_code", JsString::new(scope, &a.local_code).expect("local_code from results array is wrong"))?;
 
         arr.set(i, obj)?;
         i = i + 1;

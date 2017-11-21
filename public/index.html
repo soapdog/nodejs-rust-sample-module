@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .results {
+        display: flex;
+    }
+
+    .result-column {
+        flex: 1;
+    }
+</style>
+
+<body>
+    <h1>Airports close to you</h1>
+    <p>Find airports close to a given location.</p>
+    <p>
+        <label for="lat">Latitude:</label>
+        <input type="text" name="lat" id="lat">
+        <label for="lon">longitude:</label>
+        <input type="text" name="lon" id="lon">
+        <button id="geolocate">Find my location</button>
+    </p>
+
+    <button id="find-rust">Find using Rust</button>
+    <button id="find-node">Find using NodeJS</button>
+    <button id="find-both">Find using both Rust and NodeJS</button>
+    <hr>
+    <h2>Results</h2>
+    <div class="results">
+        <div class="result-column" id="results-rust">No results</div>
+        <div class="result-column" id="results-node">No results</div>
+    </div>
+
+    <script>
+        let latEl = document.getElementById("lat");
+        let lonEl = document.getElementById("lon");
+
+        document.getElementById("geolocate").addEventListener("click", ev => {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                latEl.value = position.coords.latitude;
+                lonEl.value = position.coords.longitude;
+            });
+        });
+
+        function findUsingRust() {
+            let lat = latEl.value;
+            let lon = lonEl.value;
+            let timeStart = Date.now();
+
+            document.getElementById("results-rust").innerHTML = "<p>Searching...</p>";
+            fetch(`/airports/rust/${lat}/${lon}`)
+                .then(response => response.json())
+                .then(data => {
+                    let time = Date.now() - timeStart;
+                    let list = data.map(a => `<li>${a.name}</li>`).join("");
+                    let template = `
+                    <p>Rust time to answer: ${time}ms</p>
+                    <p>Total number of airports found: ${data.length}</p>
+                    <ul>
+                        ${list}
+                    </ul>
+                    `
+
+                    document.getElementById("results-rust").innerHTML = template;
+                })
+        }
+
+        function findUsingNodeJS() {
+            let lat = latEl.value;
+            let lon = lonEl.value;
+            let timeStart = Date.now();
+
+            document.getElementById("results-node").innerHTML = "<p>Searching...</p>";
+            fetch(`/airports/node/${lat}/${lon}`)
+                .then(response => response.json())
+                .then(data => {
+                    let time = Date.now() - timeStart;
+                    let list = data.map(a => `<li>${a.name}</li>`).join("");
+                    let template = `
+                    <p>NodeJS time to answer: ${time}ms</p>
+                    <p>Total number of airports found: ${data.length}</p>
+                    <ul>
+                        ${list}
+                    </ul>
+                    `
+
+                    document.getElementById("results-node").innerHTML = template;
+                })
+        }
+
+
+        document.getElementById("find-rust").addEventListener("click", findUsingRust);
+        document.getElementById("find-node").addEventListener("click", findUsingNodeJS);
+        document.getElementById("find-both").addEventListener("click", ev => {
+            findUsingNodeJS();
+            findUsingRust();
+        });
+
+
+
+    </script>
+</body>
+
+</html>
