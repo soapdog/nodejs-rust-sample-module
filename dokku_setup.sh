@@ -1,4 +1,4 @@
-apt install build-essential -y
+sudo apt-get install build-essential -y
 curl -o /tmp/rustup-init.sh "https://sh.rustup.rs"
 wait
 sh /tmp/rustup-init.sh -y
