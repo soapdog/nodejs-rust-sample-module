@@ -1,6 +1,6 @@
 let express = require('express');
 let get_airports_node = require("./airports.js");
-let get_airports_rust = require("./lib");
+//let get_airports_rust = require("./lib");
 
 let router = express();
 
