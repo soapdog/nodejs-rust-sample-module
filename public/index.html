@@ -49,19 +49,38 @@
             });
         });
 
+        function compare(a, b) {
+            var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+            var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+
+            // names must be equal
+            return 0;
+        }
+
         function findUsingRust() {
             let lat = latEl.value;
             let lon = lonEl.value;
             let timeStart = Date.now();
+            let timeEnd = 0;
+
 
             document.getElementById("results-rust").innerHTML = "<p>Searching...</p>";
             fetch(`/airports/rust/${lat}/${lon}`)
-                .then(response => response.json())
+                .then(response => {
+                    timeEnd = Date.now() - timeStart;
+                    return response.json()
+                })
                 .then(data => {
-                    let time = Date.now() - timeStart;
+                    data.sort(compare);
                     let list = data.map(a => `<li>${a.name}</li>`).join("");
                     let template = `
-                    <p>Rust time to answer: ${time}ms</p>
+                    <p>Rust time to answer: ${timeEnd}ms</p>
                     <p>Total number of airports found: ${data.length}</p>
                     <ul>
                         ${list}
@@ -76,15 +95,19 @@
             let lat = latEl.value;
             let lon = lonEl.value;
             let timeStart = Date.now();
+            let timeEnd = 0;
 
             document.getElementById("results-node").innerHTML = "<p>Searching...</p>";
             fetch(`/airports/node/${lat}/${lon}`)
-                .then(response => response.json())
+                .then(response => {
+                    timeEnd = Date.now() - timeStart;
+                    return response.json()
+                })
                 .then(data => {
-                    let time = Date.now() - timeStart;
+                    data.sort(compare);
                     let list = data.map(a => `<li>${a.name}</li>`).join("");
                     let template = `
-                    <p>NodeJS time to answer: ${time}ms</p>
+                    <p>NodeJS time to answer: ${timeEnd}ms</p>
                     <p>Total number of airports found: ${data.length}</p>
                     <ul>
                         ${list}
@@ -99,8 +122,8 @@
         document.getElementById("find-rust").addEventListener("click", findUsingRust);
         document.getElementById("find-node").addEventListener("click", findUsingNodeJS);
         document.getElementById("find-both").addEventListener("click", ev => {
-            findUsingNodeJS();
             findUsingRust();
+            findUsingNodeJS();
         });
 
 

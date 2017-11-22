@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preinstall": "sh ./dokku_setup.sh"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines" : { 
     "node" : ">=8.x" 
