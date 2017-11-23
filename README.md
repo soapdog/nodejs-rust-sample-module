@@ -1,5 +1,5 @@
 # Find Airports Close to You Webapp
-This is a sample webapp to demonstrate the usage of [Rust](https://rust-lang.org)-based modules with [NodeJS](https://nodejs.org) webapps.
+This is a sample webapp to demonstrate the usage of [Rust 🦀](https://rust-lang.org)-based modules with [NodeJS](https://nodejs.org) webapps.
 
 # How the algorithm works
 There is a [CSV](https://en.wikipedia.org/wiki/Comma-separated_values) file containing about 46.000 airports. For each record we have a lot of data, including its Latitude and Longitude.
@@ -20,7 +20,13 @@ Use:
 $ npm install
 ```
 
-To install all the required NodeJS modules and also build the Rust-based module using Neon Bindings. Run the application with:
+To install all the required NodeJS modules. To build the Rust-based module using Neon Bindings:
+
+```
+$ neon build
+```
+
+Run the application with:
 
 ```
 $ node index.js
